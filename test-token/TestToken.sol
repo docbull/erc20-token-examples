@@ -5,6 +5,9 @@ pragma solidity ^0.8.14;
 import "./node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract TestToken is ERC20 {
+    // Setttle is a settlement of that users' rewards
+    event Settle(address indexed from, address indexed to, uint tokens);
+
     string private constant _name = "Test Token Coin"; // the name that will be shown on wallet
     string private constant _symbol = "TTC";           // it indicates the coin's symbol (e.g., ETH from Ethereum)
     uint8 private constant _decimals = 18;             // this number means the decimal of the amount of the coin
@@ -15,6 +18,11 @@ contract TestToken is ERC20 {
         _initial_supply = total * (10 ** _decimals);
 
         _mint(msg.sender, _initial_supply);
+    }
+
+    function settle(address receiver, uint numTokens) public returns (bool) {
+        emit Settle(msg.sender, receiver, numTokens);
+        return true;
     }
 
     // function balanceOf(address account) public view virtual override returns (uint256) {
