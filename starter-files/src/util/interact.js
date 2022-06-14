@@ -6,8 +6,8 @@ const web3 = createAlchemyWeb3(alchemyKey);
 const contractABI = require('../contract-abi.json');
 const contractAddress = '0x6f3f635A9762B47954229Ea479b4541eAF402A6A';
 
-const testABI = require('../test-abi.json');
-const testContractAddress = '0xaD79cc64af2337B14ACb2caED4F33688Bd8dDc5C';
+const testABI = require('../TestToken-abi.json');
+const testContractAddress = '0x847c9794fc03ee5abf74455929313b13464bd902';
 
 export const helloWorldContract = new web3.eth.Contract(
     contractABI,
@@ -111,28 +111,46 @@ export const updateMessage = async (address, message) => {
     // const test = await testContract.methods.balanceOf(address).call();
     // console.log(test/(10**18));
 
-    const receiver = '0x1B8e6F4a982Dfe488006dC6Eac723029D15370B2';
-    const value = 1 * (10**18);
-    const amount = web3.utils.toBN(value);
-    const test = await testContract.methods.transfer(receiver, amount);
-    console.log("Test:", test);
+    let balances = await testContract.methods.balanceOf(address).call();
+    console.log("Balances:", balances/(10**18));
+
+    let records = await testContract.methods.inquery(address).call();
+    console.log("Records:", records);
+
+    let recording = await testContract.methods.record(1);
     const txParameters = {
         to: testContractAddress,
         from: address,
-        // data contains the call to our Hello World smart contract's 
-        // update method, receiving our message string variable as input
-        data: test.encodeABI(),
-        // data: helloWorldContract.methods.update(message).encodeABI(),
+        data: recording.encodeABI(),
     }
     try {
         const txHash = await window.ethereum.request({
             method: "eth_sendTransaction",
             params: [txParameters],
-        });
-        console.log(txHash);
+        })
     } catch (err) {
         console.log(err);
     }
+
+    // const receiver = '0x1B8e6F4a982Dfe488006dC6Eac723029D15370B2';
+    // const value = 1 * (10**18);
+    // const amount = web3.utils.toBN(value);
+    // const test = await testContract.methods.transfer(receiver, amount);
+    // console.log("Test:", test);
+    // const txParameters = {
+    //     to: testContractAddress,
+    //     from: address,
+    //     data: test.encodeABI(),
+    // }
+    // try {
+    //     const txHash = await window.ethereum.request({
+    //         method: "eth_sendTransaction",
+    //         params: [txParameters],
+    //     });
+    //     console.log(txHash);
+    // } catch (err) {
+    //     console.log(err);
+    // }
 
     const data = helloWorldContract.methods.update(message);
     console.log("The data:", data);
