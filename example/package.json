@@ -1,0 +1,28 @@
+{
+  "name": "erc20-token-example",
+  "version": "1.0.0",
+  "description": "example codes for using smart contracts of ERC-20 token",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/docbull/erc20-token-examples"
+  },
+  "keywords": [
+    "erc20",
+    "token",
+    "smart-contract",
+    "example",
+    "metamask"
+  ],
+  "author": "Docbull Watson",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  }
+}
