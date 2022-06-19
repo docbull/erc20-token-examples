@@ -1,6 +1,6 @@
 import contractABI from './TestToken-abi.json'assert{type: "json"};
 const contractAddress = "0xAB8c361D9f7Fd5f0C32261F625a7C181adD6C5e5";
-const alchemyKey = "https://eth-rinkeby.alchemyapi.io/v2/-Ji3kkJnrDIJC6fOd68MhCOTXijRu1qy";
+const alchemyKey = "";
 const web3 = AlchemyWeb3.createAlchemyWeb3(alchemyKey);
 
 export async function tokenTransfer () {
@@ -22,7 +22,7 @@ export async function tokenTransfer () {
             console.log(err);
         }
     } else {
-        console.log("NONE OF ETHERUEM");
+        console.log("🦊 Your need to install metamask on your browser.");
     }
 }
 
@@ -43,7 +43,7 @@ export async function getBalances() {
     } else {
         messages = `
             <div>
-                Your need to login
+                🦊 Your need to connect metamask with this page.
             <div>
         `
     }
